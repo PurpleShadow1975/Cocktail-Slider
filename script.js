@@ -1,14 +1,3 @@
-// JavaScript Document
-$(document).ready(function () {
-  $("#autoWidth").lightSlider({
-    autoWidth: true,
-    loop: true,
-    onSliderLoad: function () {
-      $("#autoWidth").removeClass("cS-hidden");
-    },
-  });
-});
-
 //The user will enter a cocktail. Get a cocktail name, photo, and instructions and place them in the DOM
 document.querySelector("button").addEventListener("click", getDrink);
 
@@ -71,3 +60,14 @@ function getDrink() {
 // perhaps have option between alcoholic/non-alcoholic
 // what if cocktail doesn't have an image?
 // not too keen on the arrow buttons
+
+// JavaScript Document
+$(document).ready(function () {
+  $("#autoWidth").lightSlider({
+    autoWidth: true,
+    loop: true,
+    onSliderLoad: function () {
+      $("#autoWidth").removeClass("cS-hidden");
+    },
+  });
+});
