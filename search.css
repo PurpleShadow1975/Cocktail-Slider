@@ -1,4 +1,19 @@
 .wrapper-search {
   margin-top: 3.2rem;
-  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  max-width: 80vw;
+}
+
+.category-wrapper {
+  display: flex;
+  justify-content: wrap;
+}
+
+.categories {
+  width: 150px;
+  height: 150px;
+  background-color: purple;
+  border: 1px solid black;
+  border-radius: 10px;
 }
