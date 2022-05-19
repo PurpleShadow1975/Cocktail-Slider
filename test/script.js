@@ -4,6 +4,7 @@ document.querySelector(".button").addEventListener("click", getDrink);
 // close the modal window function
 function closeModal() {
   document.getElementById("cocktail").classList.add("hidden");
+  document.getElementById("cocktail2").classList.remove("hidden");
   document.querySelector(".overlay").classList.add("hidden");
   document.querySelector("input").value = "";
 }
@@ -16,23 +17,31 @@ function getDrink() {
     .then((res) => res.json())
     .then((data) => {
       let cocktail = data.drinks[0];
+      let cocktail2 = data.drinks[1];
       console.log(cocktail);
 
       // Show Cocktail window
       document.getElementById("cocktail").classList.remove("hidden");
+      document.getElementById("cocktail2").classList.remove("hidden");
       document.querySelector(".overlay").classList.remove("hidden");
 
       // Instructions for cocktail
       document.querySelector(".instruction-content").innerText =
         cocktail.strInstructions;
+      document.querySelector(".instruction-content2").innerText =
+        cocktail2.strInstructions;
 
       // Set the Cocktail Image
       document.querySelector(
         ".modal"
       ).style.backgroundImage = `url("${cocktail.strDrinkThumb}")`;
+      document.querySelector(
+        ".modal2"
+      ).style.backgroundImage = `url("${cocktail2.strDrinkThumb}")`;
 
       // Cocktail name as title
       document.getElementById("cocktail-name").innerText = cocktail.strDrink;
+      document.getElementById("cocktail-name2").innerText = cocktail2.strDrink;
 
       // Ingredients and Measures
       let ingredients = [
