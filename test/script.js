@@ -62,6 +62,23 @@ function getDrink() {
         cocktail.strIngredient15,
       ];
 
+      let ingredients2 = [
+        cocktail2.strIngredient1,
+        cocktail2.strIngredient2,
+        cocktail2.strIngredient3,
+        cocktail2.strIngredient4,
+        cocktail2.strIngredient5,
+        cocktail2.strIngredient6,
+        cocktail2.strIngredient7,
+        cocktail2.strIngredient8,
+        cocktail2.strIngredient9,
+        cocktail2.strIngredient10,
+        cocktail2.strIngredient11,
+        cocktail2.strIngredient12,
+        cocktail2.strIngredient13,
+        cocktail2.strIngredient14,
+        cocktail2.strIngredient15,
+      ];
       let measures = [
         cocktail.strMeasure1,
         cocktail.strMeasure2,
@@ -80,10 +97,28 @@ function getDrink() {
         cocktail.strMeasure15,
       ];
 
+      let measures2 = [
+        cocktail2.strMeasure1,
+        cocktail2.strMeasure2,
+        cocktail2.strMeasure3,
+        cocktail2.strMeasure4,
+        cocktail2.strMeasure5,
+        cocktail2.strMeasure6,
+        cocktail2.strMeasure7,
+        cocktail2.strMeasure8,
+        cocktail2.strMeasure9,
+        cocktail2.strMeasure10,
+        cocktail2.strMeasure11,
+        cocktail2.strMeasure12,
+        cocktail2.strMeasure13,
+        cocktail2.strMeasure14,
+        cocktail2.strMeasure15,
+      ];
+
       // console.log(measures, ingredients);
       for (let i = 1; i < 16; i++) {
         if (measures[i - 1] !== null) {
-          console.log(`ingredient--${i}`, measures[i - 1], ingredients[i - 1]);
+          // console.log(`ingredient--${i}`, measures[i - 1], ingredients[i - 1]);
           document.getElementById(`ingredient--${i}`).innerText =
             measures[i - 1] + ingredients[i - 1];
           document
@@ -94,6 +129,7 @@ function getDrink() {
     })
     .catch((err) => {
       document.getElementById("cocktail").classList.remove("hidden");
+      document.getElementById("cocktail2").classList.remove("hidden");
       document.querySelector(".overlay").classList.remove("hidden");
       console.log(`error ${err}`);
     });

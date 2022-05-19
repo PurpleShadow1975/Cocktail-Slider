@@ -199,35 +199,41 @@ input {
   z-index: 150;
 }
 
-.ingredients {
+.ingredients,
+.ingredients2 {
   max-width: 50%;
   /* background-color: purple; */
   margin: 2rem 0;
 }
-.ingredients ul {
+.ingredients ul,
+.ingredients2 ul {
   width: 100%;
   /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
 }
-.ingredients li {
+.ingredients li,
+.ingredients2 li {
   list-style: none;
   padding: 1rem 2rem 1rem 1rem;
   font-size: 1.8rem;
 }
 
-.instruction {
+.instruction,
+.instruction2 {
   width: 50%;
 
   display: flex;
   flex-wrap: wrap;
 }
-.instruction-content {
+.instruction-content,
+.instruction-content2 {
   font-size: 1.8rem;
   line-height: 2.5rem;
 }
 
-.ingredient-display {
+.ingredient-display,
+.ingredient-display2 {
   max-width: 600px;
   background-color: #b9db6f;
 
