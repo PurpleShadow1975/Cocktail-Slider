@@ -82,12 +82,24 @@ h2 {
   font-size: 2.4rem;
   border-radius: 1.4rem;
   transition: all ease-in 0.3s;
+  border: none;
 }
 
 .button:hover {
   background-color: #f87c87;
 }
 
+.btn-wrapper {
+  z-index: 400;
+  position: absolute;
+  top: 87%;
+  left: center;
+}
+
+.btn-wrapper .button {
+  margin: 0 4rem;
+  width: 15rem;
+}
 input {
   font-size: 3rem;
   padding: .6rem 1.5rem;
@@ -126,8 +138,7 @@ input {
   margin: 3.2rem 0;
 }
 
-#cocktail-name,
-#cocktail-name2  {
+#cocktail-name  {
   font-family: "Qwitcher Grypen", cursive;
   font-size: 10rem;
   color: #f87c87;
@@ -139,8 +150,7 @@ input {
   display: none;
 }
 
-.close-modal,
-.close-modal2 {
+.close-modal {
   position: absolute;
   top: 1.2rem;
   right: 2rem;
@@ -169,25 +179,6 @@ input {
   background-repeat: no-repeat;
 }
 
-
-.modal2 {
-  position: absolute;
-  top: 45%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: 80%;
-  background-color: #f9f9ef;
-  padding: 6rem;
-  border-radius: 5px;
-  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
-  z-index: 190;
-  background-image: url(images/cocktail.png);
-  background-position: right;
-  background-size: 45%;
-  background-repeat: no-repeat;
-}
-
 .overlay {
   position: absolute;
   top: 0;
@@ -199,41 +190,35 @@ input {
   z-index: 150;
 }
 
-.ingredients,
-.ingredients2 {
+.ingredients {
   max-width: 50%;
   /* background-color: purple; */
   margin: 2rem 0;
 }
-.ingredients ul,
-.ingredients2 ul {
+.ingredients ul {
   width: 100%;
   /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
 }
-.ingredients li,
-.ingredients2 li {
+.ingredients li {
   list-style: none;
   padding: 1rem 2rem 1rem 1rem;
   font-size: 1.8rem;
 }
 
-.instruction,
-.instruction2 {
+.instruction {
   width: 50%;
 
   display: flex;
   flex-wrap: wrap;
 }
-.instruction-content,
-.instruction-content2 {
+.instruction-content {
   font-size: 1.8rem;
   line-height: 2.5rem;
 }
 
-.ingredient-display,
-.ingredient-display2 {
+.ingredient-display {
   max-width: 600px;
   background-color: #b9db6f;
 

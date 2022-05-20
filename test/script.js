@@ -4,9 +4,10 @@ document.querySelector(".button").addEventListener("click", getDrink);
 // close the modal window function
 function closeModal() {
   document.getElementById("cocktail").classList.add("hidden");
-  document.getElementById("cocktail2").classList.remove("hidden");
   document.querySelector(".overlay").classList.add("hidden");
+  document.querySelector(".btn-wrapper").classList.add("hidden");
   document.querySelector("input").value = "";
+  document.querySelector("ul").innerHTML = "";
 }
 
 // fetch the cocktail function
@@ -16,32 +17,33 @@ function getDrink() {
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then((res) => res.json())
     .then((data) => {
+      // Build a modal window for each cocktail in the array and stack it behind the first one (i.e. after the first, the rest needs to be hidden)
+
+      // If there is none....goto error
+      // If only one we don't need buttons
+
+      // Build the contents of each modal window
+
       let cocktail = data.drinks[0];
-      let cocktail2 = data.drinks[1];
-      console.log(cocktail);
+      let cocktailArr = Array.from(data.drinks);
+      console.log(cocktailArr.length);
 
       // Show Cocktail window
       document.getElementById("cocktail").classList.remove("hidden");
-      document.getElementById("cocktail2").classList.remove("hidden");
       document.querySelector(".overlay").classList.remove("hidden");
+      document.querySelector(".btn-wrapper").classList.remove("hidden");
 
       // Instructions for cocktail
       document.querySelector(".instruction-content").innerText =
         cocktail.strInstructions;
-      document.querySelector(".instruction-content2").innerText =
-        cocktail2.strInstructions;
 
       // Set the Cocktail Image
       document.querySelector(
         ".modal"
       ).style.backgroundImage = `url("${cocktail.strDrinkThumb}")`;
-      document.querySelector(
-        ".modal2"
-      ).style.backgroundImage = `url("${cocktail2.strDrinkThumb}")`;
 
       // Cocktail name as title
       document.getElementById("cocktail-name").innerText = cocktail.strDrink;
-      document.getElementById("cocktail-name2").innerText = cocktail2.strDrink;
 
       // Ingredients and Measures
       let ingredients = [
@@ -62,23 +64,6 @@ function getDrink() {
         cocktail.strIngredient15,
       ];
 
-      let ingredients2 = [
-        cocktail2.strIngredient1,
-        cocktail2.strIngredient2,
-        cocktail2.strIngredient3,
-        cocktail2.strIngredient4,
-        cocktail2.strIngredient5,
-        cocktail2.strIngredient6,
-        cocktail2.strIngredient7,
-        cocktail2.strIngredient8,
-        cocktail2.strIngredient9,
-        cocktail2.strIngredient10,
-        cocktail2.strIngredient11,
-        cocktail2.strIngredient12,
-        cocktail2.strIngredient13,
-        cocktail2.strIngredient14,
-        cocktail2.strIngredient15,
-      ];
       let measures = [
         cocktail.strMeasure1,
         cocktail.strMeasure2,
@@ -97,39 +82,26 @@ function getDrink() {
         cocktail.strMeasure15,
       ];
 
-      let measures2 = [
-        cocktail2.strMeasure1,
-        cocktail2.strMeasure2,
-        cocktail2.strMeasure3,
-        cocktail2.strMeasure4,
-        cocktail2.strMeasure5,
-        cocktail2.strMeasure6,
-        cocktail2.strMeasure7,
-        cocktail2.strMeasure8,
-        cocktail2.strMeasure9,
-        cocktail2.strMeasure10,
-        cocktail2.strMeasure11,
-        cocktail2.strMeasure12,
-        cocktail2.strMeasure13,
-        cocktail2.strMeasure14,
-        cocktail2.strMeasure15,
-      ];
-
       // console.log(measures, ingredients);
       for (let i = 1; i < 16; i++) {
-        if (measures[i - 1] !== null) {
+        if (measures[i - 1] !== null && measures[i - 1] !== "") {
           // console.log(`ingredient--${i}`, measures[i - 1], ingredients[i - 1]);
-          document.getElementById(`ingredient--${i}`).innerText =
-            measures[i - 1] + ingredients[i - 1];
-          document
-            .getElementById(`ingredient--${i}`)
-            .classList.add("ingredient-display");
+          let li = document.createElement("li");
+          li.id = `ingredient--${i}`;
+          li.innerText = measures[i - 1] + ingredients[i - 1];
+          li.classList.add("ingredient-display");
+          document.querySelector("ul").appendChild(li);
+
+          // document.getElementById(`ingredient--${i}`).innerText =
+          //   measures[i - 1] + ingredients[i - 1];
+          // document
+          //   .getElementById(`ingredient--${i}`)
+          //   .classList.add("ingredient-display");
         }
       }
     })
     .catch((err) => {
       document.getElementById("cocktail").classList.remove("hidden");
-      document.getElementById("cocktail2").classList.remove("hidden");
       document.querySelector(".overlay").classList.remove("hidden");
       console.log(`error ${err}`);
     });

@@ -5,7 +5,9 @@ document.querySelector(".button").addEventListener("click", getDrink);
 function closeModal() {
   document.getElementById("cocktail").classList.add("hidden");
   document.querySelector(".overlay").classList.add("hidden");
+  document.querySelector(".btn-wrapper").classList.add("hidden");
   document.querySelector("input").value = "";
+  document.querySelector("ul").innerHTML = "";
 }
 
 // fetch the cocktail function
@@ -15,12 +17,21 @@ function getDrink() {
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then((res) => res.json())
     .then((data) => {
+      // Build a modal window for each cocktail in the array and stack it behind the first one (i.e. after the first, the rest needs to be hidden)
+
+      // If there is none....goto error
+      // If only one we don't need buttons
+
+      // Build the contents of each modal window
+
       let cocktail = data.drinks[0];
-      console.log(cocktail);
+      let cocktailArr = Array.from(data.drinks);
+      console.log(cocktailArr.length);
 
       // Show Cocktail window
       document.getElementById("cocktail").classList.remove("hidden");
       document.querySelector(".overlay").classList.remove("hidden");
+      document.querySelector(".btn-wrapper").classList.remove("hidden");
 
       // Instructions for cocktail
       document.querySelector(".instruction-content").innerText =
@@ -73,13 +84,19 @@ function getDrink() {
 
       // console.log(measures, ingredients);
       for (let i = 1; i < 16; i++) {
-        if (measures[i - 1] !== null) {
-          console.log(`ingredient--${i}`, measures[i - 1], ingredients[i - 1]);
-          document.getElementById(`ingredient--${i}`).innerText =
-            measures[i - 1] + ingredients[i - 1];
-          document
-            .getElementById(`ingredient--${i}`)
-            .classList.add("ingredient-display");
+        if (measures[i - 1] !== null && measures[i - 1] !== "") {
+          // console.log(`ingredient--${i}`, measures[i - 1], ingredients[i - 1]);
+          let li = document.createElement("li");
+          li.id = `ingredient--${i}`;
+          li.innerText = measures[i - 1] + ingredients[i - 1];
+          li.classList.add("ingredient-display");
+          document.querySelector("ul").appendChild(li);
+
+          // document.getElementById(`ingredient--${i}`).innerText =
+          //   measures[i - 1] + ingredients[i - 1];
+          // document
+          //   .getElementById(`ingredient--${i}`)
+          //   .classList.add("ingredient-display");
         }
       }
     })

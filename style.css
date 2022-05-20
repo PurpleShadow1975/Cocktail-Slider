@@ -82,12 +82,24 @@ h2 {
   font-size: 2.4rem;
   border-radius: 1.4rem;
   transition: all ease-in 0.3s;
+  border: none;
 }
 
 .button:hover {
   background-color: #f87c87;
 }
 
+.btn-wrapper {
+  z-index: 400;
+  position: absolute;
+  top: 87%;
+  left: center;
+}
+
+.btn-wrapper .button {
+  margin: 0 4rem;
+  width: 15rem;
+}
 input {
   font-size: 3rem;
   padding: .6rem 1.5rem;
