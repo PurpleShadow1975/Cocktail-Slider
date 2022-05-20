@@ -1,7 +1,10 @@
 // search for cocktail function
-document.querySelector(".button").addEventListener("click", getDrink);
+document.getElementById("searchButton").addEventListener("click", getDrink);
+document.getElementById("previous").addEventListener("click", previousCocktail);
+document.getElementById("next").addEventListener("click", nextCocktail);
 
 // close the modal window function
+// N O T   W O R K I N G
 function closeModal() {
   document.getElementById("cocktail").classList.add("hidden");
   document.querySelector(".overlay").classList.add("hidden");
@@ -10,6 +13,24 @@ function closeModal() {
   document.querySelector("ul").innerHTML = "";
 }
 
+function nextCocktail() {
+  console.log("Next button clicked!");
+  console.log(cocktailArr.length);
+
+  for (let x = 1; x <= cocktailArr.length; x++) {}
+  // current cocktailId[num] needs to be hidden
+  // cocktailId[num + 1] needs to be visible
+  // if last cocktailId[num] then we have to go back to [1]
+}
+
+function previousCocktail() {
+  console.log("Previous button clicked!");
+  // current cocktailId[num] needs to be hidden
+  // cocktailId[num - 1] needs to be visible
+  // if first cocktailId[num] then we have to go to [last]
+}
+
+let cocktailArr;
 // fetch the cocktail function
 function getDrink() {
   let drink = document.querySelector("input").value;
@@ -18,18 +39,41 @@ function getDrink() {
     .then((res) => res.json())
     .then((data) => {
       // Build a modal window for each cocktail in the array and stack it behind the first one (i.e. after the first, the rest needs to be hidden)
+      cocktailArr = Array.from(data.drinks);
+      let i = 0;
+      cocktailArr.forEach((id) => {
+        i++;
+        const div = document.getElementById("cocktail");
+        const clone = div.cloneNode(true);
+        clone.id = `cocktailId${i}`;
+        document.getElementById("carouselId").appendChild(clone);
+
+        // Set the title of the cocktail, which is child 3 of the parent element
+        let parent = document.getElementById(`cocktailId${i}`);
+        let children = parent.childNodes;
+        children[3].innerText = cocktailArr[i - 1].strDrink;
+
+        //if it is the first clone, we need to remove hidden class
+        if (i === 1) {
+          document.getElementById(`cocktailId${i}`).classList.remove("hidden");
+        }
+
+        // If only one item in array we don't need buttons
+        // if (cocktailArr.length === 1) {
+        //   document.querySelector(".btn-wrapper").classList.add("hidden");
+        // } else {
+        //   document.querySelector(".btn-wrapper").classList.remove("hidden");
+        // }
+      });
 
       // If there is none....goto error
-      // If only one we don't need buttons
 
       // Build the contents of each modal window
 
       let cocktail = data.drinks[0];
-      let cocktailArr = Array.from(data.drinks);
-      console.log(cocktailArr.length);
 
       // Show Cocktail window
-      document.getElementById("cocktail").classList.remove("hidden");
+      // document.getElementById("cocktail").classList.remove("hidden");
       document.querySelector(".overlay").classList.remove("hidden");
       document.querySelector(".btn-wrapper").classList.remove("hidden");
 
@@ -43,7 +87,8 @@ function getDrink() {
       ).style.backgroundImage = `url("${cocktail.strDrinkThumb}")`;
 
       // Cocktail name as title
-      document.getElementById("cocktail-name").innerText = cocktail.strDrink;
+      // document.getElementById("cocktail-name").innerText = cocktail.strDrink;
+      // document.querySelector(".cocktail-name").innerText = cocktail.strDrink;
 
       // Ingredients and Measures
       let ingredients = [

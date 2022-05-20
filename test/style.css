@@ -138,7 +138,7 @@ input {
   margin: 3.2rem 0;
 }
 
-#cocktail-name  {
+.cocktail-name  {
   font-family: "Qwitcher Grypen", cursive;
   font-size: 10rem;
   color: #f87c87;
@@ -173,12 +173,17 @@ input {
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 200;
-  background-image: url(images/cocktail.png);
+  background-image: url(../images/cocktail.png);
   background-position: right;
   background-size: 45%;
   background-repeat: no-repeat;
+  
 }
 
+/* .carousel {
+  display: flex;
+  transform: translateX(100%);
+} */
 .overlay {
   position: absolute;
   top: 0;
