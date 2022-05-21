@@ -144,6 +144,7 @@ input {
   color: #f87c87;
   display: block;
   text-align: start;
+  margin-top: -3rem;
 }
 
 .hidden {
@@ -173,8 +174,8 @@ input {
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 200;
-  background-image: url(images/cocktail.png);
-  background-position: right;
+  background-image: url(../images/cocktail.png);
+  background-position: 100% 80%;
   background-size: 45%;
   background-repeat: no-repeat;
 }

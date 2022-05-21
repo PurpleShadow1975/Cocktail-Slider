@@ -1,109 +1,132 @@
 // search for cocktail function
-document.querySelector(".button").addEventListener("click", getDrink);
+document.querySelector(".search").addEventListener("click", getDrink);
+document.querySelector(".previous").addEventListener("click", previousDrink);
+document.querySelector(".next").addEventListener("click", nextDrink);
+document.querySelector(".close-modal").addEventListener("click", closeModal);
 
-// close the modal window function
+// close the modal window
 function closeModal() {
   document.getElementById("cocktail").classList.add("hidden");
   document.querySelector(".overlay").classList.add("hidden");
   document.querySelector(".btn-wrapper").classList.add("hidden");
   document.querySelector("input").value = "";
   document.querySelector("ul").innerHTML = "";
+  document.querySelector(".instruction-content").innerText = "";
 }
 
-// fetch the cocktail function
+// open the modal window
+function openModal() {
+  document.getElementById("cocktail").classList.remove("hidden");
+  document.querySelector(".overlay").classList.remove("hidden");
+}
+
+// need to clear cocktail details before showing the next or previous one.
+function clearCocktail() {
+  document.getElementById("cocktail-name").innerText = "";
+  document.querySelector("ul").innerHTML = "";
+  document.querySelector(".instruction-content").innerText = "";
+  document.querySelector(".modal").style.backgroundImage = "";
+}
+
+let arr = 0;
+
+// next button
+function nextDrink(arr) {
+  clearCocktail(num);
+  displayCocktails(num + 1);
+  //TODO What to do when we reach the end of the cocktail list?
+}
+
+// previous button
+function previousDrink(arr) {
+  clearCocktail(num);
+  displayCocktails(num - 1);
+  //TODO What to do when we reach the beginning of the cocktail list?
+}
+
+// not found error
+function notFound() {
+  document.getElementById("cocktail").classList.remove("hidden");
+  document.querySelector(".overlay").classList.remove("hidden");
+  document.getElementById("cocktail-name").innerText = "Sorry!";
+  document.querySelector(".modal").style.backgroundImage = "";
+  document.querySelector(".instruction-content").innerText =
+    "We cannot find the cocktail you are looking for.";
+}
+
+// fetch the cocktail data
+let cocktailArr;
+let cocktailArrLength;
+
 function getDrink() {
   let drink = document.querySelector("input").value;
 
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then((res) => res.json())
     .then((data) => {
-      // Build a modal window for each cocktail in the array and stack it behind the first one (i.e. after the first, the rest needs to be hidden)
+      cocktailArr = Array.from(data.drinks);
+      cocktailArrLength = cocktailArr.length;
 
-      // If there is none....goto error
-      // If only one we don't need buttons
-
-      // Build the contents of each modal window
-
-      let cocktail = data.drinks[0];
-      let cocktailArr = Array.from(data.drinks);
-      console.log(cocktailArr.length);
-
-      // Show Cocktail window
-      document.getElementById("cocktail").classList.remove("hidden");
-      document.querySelector(".overlay").classList.remove("hidden");
-      document.querySelector(".btn-wrapper").classList.remove("hidden");
-
-      // Instructions for cocktail
-      document.querySelector(".instruction-content").innerText =
-        cocktail.strInstructions;
-
-      // Set the Cocktail Image
-      document.querySelector(
-        ".modal"
-      ).style.backgroundImage = `url("${cocktail.strDrinkThumb}")`;
-
-      // Cocktail name as title
-      document.getElementById("cocktail-name").innerText = cocktail.strDrink;
-
-      // Ingredients and Measures
-      let ingredients = [
-        cocktail.strIngredient1,
-        cocktail.strIngredient2,
-        cocktail.strIngredient3,
-        cocktail.strIngredient4,
-        cocktail.strIngredient5,
-        cocktail.strIngredient6,
-        cocktail.strIngredient7,
-        cocktail.strIngredient8,
-        cocktail.strIngredient9,
-        cocktail.strIngredient10,
-        cocktail.strIngredient11,
-        cocktail.strIngredient12,
-        cocktail.strIngredient13,
-        cocktail.strIngredient14,
-        cocktail.strIngredient15,
-      ];
-
-      let measures = [
-        cocktail.strMeasure1,
-        cocktail.strMeasure2,
-        cocktail.strMeasure3,
-        cocktail.strMeasure4,
-        cocktail.strMeasure5,
-        cocktail.strMeasure6,
-        cocktail.strMeasure7,
-        cocktail.strMeasure8,
-        cocktail.strMeasure9,
-        cocktail.strMeasure10,
-        cocktail.strMeasure11,
-        cocktail.strMeasure12,
-        cocktail.strMeasure13,
-        cocktail.strMeasure14,
-        cocktail.strMeasure15,
-      ];
-
-      // console.log(measures, ingredients);
-      for (let i = 1; i < 16; i++) {
-        if (measures[i - 1] !== null && measures[i - 1] !== "") {
-          // console.log(`ingredient--${i}`, measures[i - 1], ingredients[i - 1]);
-          let li = document.createElement("li");
-          li.id = `ingredient--${i}`;
-          li.innerText = measures[i - 1] + ingredients[i - 1];
-          li.classList.add("ingredient-display");
-          document.querySelector("ul").appendChild(li);
-
-          // document.getElementById(`ingredient--${i}`).innerText =
-          //   measures[i - 1] + ingredients[i - 1];
-          // document
-          //   .getElementById(`ingredient--${i}`)
-          //   .classList.add("ingredient-display");
-        }
+      if (cocktailArr !== undefined || cocktailArr !== null) {
+        displayCocktails(0);
       }
     })
     .catch((err) => {
-      document.getElementById("cocktail").classList.remove("hidden");
-      document.querySelector(".overlay").classList.remove("hidden");
-      console.log(`error ${err}`);
+      notFound();
+
+      // console.log(`error ${err}`);
     });
 }
-document.querySelector(".close-modal").addEventListener("click", closeModal);
+
+// populate the modal window with cocktail information
+let num;
+function displayCocktails(arr) {
+  console.log(cocktailArr);
+  num = arr;
+  console.log(num);
+
+  // If we have more than 1 cocktail we want to be able to loop through
+  if (cocktailArrLength > 1) {
+    document.querySelector(".btn-wrapper").classList.remove("hidden");
+  }
+
+  // Cocktail Name
+  document.getElementById("cocktail-name").innerText =
+    cocktailArr[num].strDrink;
+
+  // Cocktail Image
+  document.querySelector(
+    ".modal"
+  ).style.backgroundImage = `url("${cocktailArr[num].strDrinkThumb}")`;
+
+  // Instructions for cocktail
+  // TODO we still have cases where there is too much text? How to resolve?
+  if (cocktailArr[num].strInstructions.length > 300) {
+    document.querySelector(".instruction-content").style.fontSize = "1.4rem";
+  } else {
+    document.querySelector(".instruction-content").style.fontSize = "1.8rem";
+  }
+  document.querySelector(".instruction-content").innerText =
+    cocktailArr[num].strInstructions;
+
+  // Measures and Ingredients
+  for (let i = 1; i < 16; i++) {
+    let measure = cocktailArr[num]["strMeasure" + i];
+    let ingredient = cocktailArr[num]["strIngredient" + i];
+
+    if (
+      // if there are more ingredients than measures needs to be checked
+      // TODO
+      (measure !== null && measure !== "") ||
+      (ingredient !== null && ingredient !== "")
+    ) {
+      let li = document.createElement("li");
+      li.id = `ingredient--${i}`;
+      // TODO Perhaps an if statement here if measure is empty we just put ingredient in?
+      li.innerText = measure + " " + ingredient;
+      li.classList.add("ingredient-display");
+      document.querySelector("ul").appendChild(li);
+    }
+  }
+  openModal();
+}
