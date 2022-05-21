@@ -122,6 +122,7 @@ function displayCocktails(arr) {
     ) {
       let li = document.createElement("li");
       li.id = `ingredient--${i}`;
+      // TODO Perhaps an if statement here if measure is empty we just put ingredient in?
       li.innerText = measure + " " + ingredient;
       li.classList.add("ingredient-display");
       document.querySelector("ul").appendChild(li);
