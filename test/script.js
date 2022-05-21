@@ -13,11 +13,35 @@ function closeModal() {
   document.querySelector("ul").innerHTML = "";
 }
 
-function nextCocktail() {
-  console.log("Next button clicked!");
-  console.log(cocktailArr.length);
+let index = 0;
 
-  for (let x = 1; x <= cocktailArr.length; x++) {}
+function nextCocktail() {
+  console.log("1.", index);
+  // console.log(cocktailArr, cocktailArr.length);
+  index++;
+  console.log("2.", index);
+
+  if (index >= cocktailArr.length) {
+    index = 1;
+    console.log("3a.", index);
+  } else if (index <= 0) {
+    index = cocktailArr.length;
+    console.log("3b.", index);
+  }
+  console.log("4.", index);
+
+  document.getElementById(`cocktailId${index}`).classList.toggle("hidden");
+  document.getElementById(`cocktailId${index + 1}`).classList.toggle("hidden");
+  console.log(`cocktailId${index}`);
+  console.log(`cocktailId${index + 1}`);
+
+  // console.log("index", index);
+  // console.log(`cocktailId${index}`);
+  // console.log(`cocktailId${index + 1}`);
+
+  // document.getElementById(`cocktailId${x}`).classList.add("hidden");
+  // document.getElementById(`cocktailId${x + 1}`).classList.remove("hidden");
+
   // current cocktailId[num] needs to be hidden
   // cocktailId[num + 1] needs to be visible
   // if last cocktailId[num] then we have to go back to [1]
@@ -25,6 +49,24 @@ function nextCocktail() {
 
 function previousCocktail() {
   console.log("Previous button clicked!");
+  console.log("1.", index);
+  // console.log(cocktailArr, cocktailArr.length);
+  index--;
+  console.log("2.", index);
+
+  if (index >= cocktailArr.length) {
+    index = 1;
+    console.log("3a.", index);
+  } else if (index < 0) {
+    index = cocktailArr.length;
+    console.log("3b.", index);
+  }
+  console.log("4.", index);
+
+  document.getElementById(`cocktailId${index}`).classList.toggle("hidden");
+  document.getElementById(`cocktailId${index - 1}`).classList.toggle("hidden");
+  console.log(`cocktailId${index}`);
+  console.log(`cocktailId${index - 1}`);
   // current cocktailId[num] needs to be hidden
   // cocktailId[num - 1] needs to be visible
   // if first cocktailId[num] then we have to go to [last]
@@ -51,7 +93,7 @@ function getDrink() {
         // Set the title of the cocktail, which is child 3 of the parent element
         let parent = document.getElementById(`cocktailId${i}`);
         let children = parent.childNodes;
-        children[3].innerText = cocktailArr[i - 1].strDrink;
+        children[1].innerText = cocktailArr[i - 1].strDrink;
 
         //if it is the first clone, we need to remove hidden class
         if (i === 1) {

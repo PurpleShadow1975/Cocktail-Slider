@@ -16,7 +16,7 @@
       <span>Cocktail</span>
       <p>Find amazing cocktails for any occasion</p>
       <input type="text" name="" id="">
-      <a id="searchButton" class="button" href="#">Search</a>
+      <a class="button search" href="#">Search</a>
     </section>
 
     <section class="hero-image">
@@ -24,23 +24,22 @@
     </section>
 
     <!-- The cocktail display modal window -->
-    <div id="carouselId" class="carousel">
-      <div id="cocktail" class="cocktails modal hidden">
-
-        <span class="cocktail-name">Please try again!</span>
-        <div class="ingredients">
-          <ul></ul>
-        </div>
-        <div class="instruction">
-          <p class="instruction-content">I am sorry, we cannot find the cocktail you are looking for.</p>
-        </div>
+    <div id="cocktail" class="cocktails modal hidden">
+      <button class="close-modal">&times;</button>
+      <span id="cocktail-name">Sorry!</span>
+      <div class="ingredients">
+        <ul></ul>
       </div>
+      <div class="instruction">
+        <p class="instruction-content">We cannot find the cocktail you are looking for.</p>
+      </div>
+
     </div>
 
-    <button class="close-modal hidden">&times;</button>
+
     <div class="btn-wrapper hidden">
-      <button id="previous" class="button">Previous</button>
-      <button id="next" class="button">Next</button>
+      <button class="button previous">Previous</button>
+      <button class="button next">Next</button>
     </div>
 
 
@@ -56,16 +55,3 @@
   </body>
 
 </html>
-
-
-<!-- 
-    <div id="cocktail" class="cocktails modal hidden">
-      <button class="close-modal">&times;</button>
-      <span id="cocktail-name">Please try again!</span>
-      <div class="ingredients">
-        <ul></ul>
-      </div>
-      <div class="instruction">
-        <p class="instruction-content">I am sorry, we cannot find the cocktail you are looking for.</p>
-      </div>
-    </div> -->
