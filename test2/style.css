@@ -89,6 +89,13 @@ h2 {
   background-color: #f87c87;
 }
 
+.button:disabled,
+.button[disabled] {
+  background-color: #ccc;
+  color: #666;
+  border: none;
+}
+
 .btn-wrapper {
   z-index: 400;
   position: absolute;
@@ -228,6 +235,9 @@ input {
   color: #1d2742;
 }
 
+.disabled{
+  
+}
 
 /*  01 Typography system
     Font size system (px)

@@ -29,7 +29,6 @@ function clearCocktail() {
 }
 
 let arr = 0;
-
 // next button
 function nextDrink(arr) {
   clearCocktail(num);
@@ -42,6 +41,14 @@ function previousDrink(arr) {
   clearCocktail(num);
   displayCocktails(num - 1);
   //TODO What to do when we reach the beginning of the cocktail list?
+}
+
+function disableButton(button) {
+  if (button === "next") {
+    document.querySelector(".next").style.backgroundColor = "#ccc";
+  } else if (button === "previous") {
+    document.querySelector(".previous").style.backgroundColor = "#ccc";
+  }
 }
 
 // not found error
@@ -83,7 +90,7 @@ let num;
 function displayCocktails(arr) {
   console.log(cocktailArr);
   num = arr;
-  console.log(num);
+  // console.log(num);
 
   // If we have more than 1 cocktail we want to be able to loop through
   if (cocktailArrLength > 1) {
@@ -116,14 +123,17 @@ function displayCocktails(arr) {
 
     if (
       // if there are more ingredients than measures needs to be checked
-      // TODO
       (measure !== null && measure !== "") ||
       (ingredient !== null && ingredient !== "")
     ) {
       let li = document.createElement("li");
       li.id = `ingredient--${i}`;
-      // TODO Perhaps an if statement here if measure is empty we just put ingredient in?
-      li.innerText = measure + " " + ingredient;
+
+      if (measure === null) {
+        li.innerText = ingredient;
+      } else {
+        li.innerText = measure + " " + ingredient;
+      }
       li.classList.add("ingredient-display");
       document.querySelector("ul").appendChild(li);
     }
