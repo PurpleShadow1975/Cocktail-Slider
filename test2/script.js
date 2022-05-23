@@ -151,32 +151,15 @@ function displayCocktails(arr) {
   }
 
   // Instructions for cocktail
-  // TODO we still have cases where there is too much text? How to resolve?
-
-  document.querySelector(".instruction-content").innerText =
-    cocktailArr[num].strInstructions;
 
   // If there are more than 300 characters in the instruction we will cut the instruction short and add ... click for more at the end, which, when hovered over should show full content?
   if (cocktailArr[num].strInstructions.length > 300) {
-    console.log(cocktailArr[num].strInstructions);
-    console.log(
-      cocktailArr[num].strInstructions.slice(
-        301,
-        cocktailArr[num].strInstructions.length
-      )
-    );
-    // document.querySelector(".instruction-content").style.fontSize = "1.4rem";
-    // document.querySelector(".instruction-content").classList.add("overflowY");
+    document.querySelector(".instruction-content").innerText =
+      cocktailArr[num].strInstructions.slice(0, 300) + "...";
   } else {
-    console.log(cocktailArr[num].strInstructions.length > 300);
-    // document
-    //   .querySelector(".instruction-content")
-    // .classList.remove("overflowY");
-    // document.querySelector(".instruction-content").style.fontSize = "1.8rem";
-    // document.querySelector(".ingredient-display").style.fontSize = "1.8rem";
-    // document
-    //   .querySelector(".instruction-content")
-    //   .classList.remove("overflowY");
+    document.querySelector(".instruction-content").innerText =
+      cocktailArr[num].strInstructions;
   }
+
   openModal();
 }
