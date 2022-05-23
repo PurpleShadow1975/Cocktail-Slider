@@ -33,14 +33,35 @@ let arr = 0;
 function nextDrink(arr) {
   clearCocktail(num);
   displayCocktails(num + 1);
-  //TODO What to do when we reach the end of the cocktail list?
+  if (num === 0) {
+    document.querySelector(".previous").classList.add("disabled");
+  } else {
+    document.querySelector(".previous").classList.remove("disabled");
+  }
+
+  if (num === cocktailArrLength - 1) {
+    document.querySelector(".next").classList.add("disabled");
+  } else {
+    document.querySelector(".next").classList.remove("disabled");
+  }
+  // console.log("next", num, cocktailArrLength);
 }
 
 // previous button
 function previousDrink(arr) {
   clearCocktail(num);
   displayCocktails(num - 1);
-  //TODO What to do when we reach the beginning of the cocktail list?
+  if (num === 0) {
+    document.querySelector(".previous").classList.add("disabled");
+  } else {
+    document.querySelector(".previous").classList.remove("disabled");
+  }
+
+  if (num === cocktailArrLength - 1) {
+    document.querySelector(".next").classList.add("disabled");
+  } else {
+    document.querySelector(".next").classList.remove("disabled");
+  }
 }
 
 function disableButton(button) {
@@ -88,7 +109,7 @@ function getDrink() {
 // populate the modal window with cocktail information
 let num;
 function displayCocktails(arr) {
-  console.log(cocktailArr);
+  // console.log(cocktailArr);
   num = arr;
   // console.log(num);
 
@@ -105,16 +126,6 @@ function displayCocktails(arr) {
   document.querySelector(
     ".modal"
   ).style.backgroundImage = `url("${cocktailArr[num].strDrinkThumb}")`;
-
-  // Instructions for cocktail
-  // TODO we still have cases where there is too much text? How to resolve?
-  if (cocktailArr[num].strInstructions.length > 300) {
-    document.querySelector(".instruction-content").style.fontSize = "1.4rem";
-  } else {
-    document.querySelector(".instruction-content").style.fontSize = "1.8rem";
-  }
-  document.querySelector(".instruction-content").innerText =
-    cocktailArr[num].strInstructions;
 
   // Measures and Ingredients
   for (let i = 1; i < 16; i++) {
@@ -137,6 +148,35 @@ function displayCocktails(arr) {
       li.classList.add("ingredient-display");
       document.querySelector("ul").appendChild(li);
     }
+  }
+
+  // Instructions for cocktail
+  // TODO we still have cases where there is too much text? How to resolve?
+
+  document.querySelector(".instruction-content").innerText =
+    cocktailArr[num].strInstructions;
+
+  // If there are more than 300 characters in the instruction we will cut the instruction short and add ... click for more at the end, which, when hovered over should show full content?
+  if (cocktailArr[num].strInstructions.length > 300) {
+    console.log(cocktailArr[num].strInstructions);
+    console.log(
+      cocktailArr[num].strInstructions.slice(
+        301,
+        cocktailArr[num].strInstructions.length
+      )
+    );
+    // document.querySelector(".instruction-content").style.fontSize = "1.4rem";
+    // document.querySelector(".instruction-content").classList.add("overflowY");
+  } else {
+    console.log(cocktailArr[num].strInstructions.length > 300);
+    // document
+    //   .querySelector(".instruction-content")
+    // .classList.remove("overflowY");
+    // document.querySelector(".instruction-content").style.fontSize = "1.8rem";
+    // document.querySelector(".ingredient-display").style.fontSize = "1.8rem";
+    // document
+    //   .querySelector(".instruction-content")
+    //   .classList.remove("overflowY");
   }
   openModal();
 }

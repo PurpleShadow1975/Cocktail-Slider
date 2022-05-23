@@ -89,12 +89,16 @@ h2 {
   background-color: #f87c87;
 }
 
-.button:disabled,
-.button[disabled] {
+.disabled {
   background-color: #ccc;
   color: #666;
   border: none;
+  pointer-events: none;
 }
+
+/* .overflowY {
+  overflow-y: scroll;
+} */
 
 .btn-wrapper {
   z-index: 400;
@@ -217,13 +221,19 @@ input {
 
 .instruction {
   width: 50%;
-
+  /* overflow-y:scroll; */
   display: flex;
   flex-wrap: wrap;
 }
+
+/* .overflowY {
+  overflow-y:scroll;
+} */
+
 .instruction-content {
   font-size: 1.8rem;
   line-height: 2.5rem;
+  height: 50%;
 }
 
 .ingredient-display {
@@ -235,9 +245,7 @@ input {
   color: #1d2742;
 }
 
-.disabled{
-  
-}
+ 
 
 /*  01 Typography system
     Font size system (px)
