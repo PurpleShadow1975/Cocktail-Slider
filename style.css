@@ -89,6 +89,13 @@ h2 {
   background-color: #f87c87;
 }
 
+.disabled {
+  background-color: #ccc;
+  color: #666;
+  border: none;
+  pointer-events: none;
+}
+
 .btn-wrapper {
   z-index: 400;
   position: absolute;
@@ -174,7 +181,7 @@ input {
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 200;
-  background-image: url(../images/cocktail.png);
+  background-image: url(images/cocktail.png);
   background-position: 100% 80%;
   background-size: 45%;
   background-repeat: no-repeat;
@@ -193,12 +200,10 @@ input {
 
 .ingredients {
   max-width: 50%;
-  /* background-color: purple; */
   margin: 2rem 0;
 }
 .ingredients ul {
   width: 100%;
-  /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
 }
@@ -210,13 +215,14 @@ input {
 
 .instruction {
   width: 50%;
-
   display: flex;
   flex-wrap: wrap;
 }
+
 .instruction-content {
   font-size: 1.8rem;
   line-height: 2.5rem;
+  height: 50%;
 }
 
 .ingredient-display {
@@ -228,6 +234,7 @@ input {
   color: #1d2742;
 }
 
+ 
 
 /*  01 Typography system
     Font size system (px)

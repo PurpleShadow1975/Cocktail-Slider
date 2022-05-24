@@ -29,19 +29,47 @@ function clearCocktail() {
 }
 
 let arr = 0;
-
 // next button
 function nextDrink(arr) {
   clearCocktail(num);
   displayCocktails(num + 1);
-  //TODO What to do when we reach the end of the cocktail list?
+  if (num === 0) {
+    document.querySelector(".previous").classList.add("disabled");
+  } else {
+    document.querySelector(".previous").classList.remove("disabled");
+  }
+
+  if (num === cocktailArrLength - 1) {
+    document.querySelector(".next").classList.add("disabled");
+  } else {
+    document.querySelector(".next").classList.remove("disabled");
+  }
+  // console.log("next", num, cocktailArrLength);
 }
 
 // previous button
 function previousDrink(arr) {
   clearCocktail(num);
   displayCocktails(num - 1);
-  //TODO What to do when we reach the beginning of the cocktail list?
+  if (num === 0) {
+    document.querySelector(".previous").classList.add("disabled");
+  } else {
+    document.querySelector(".previous").classList.remove("disabled");
+  }
+
+  if (num === cocktailArrLength - 1) {
+    document.querySelector(".next").classList.add("disabled");
+  } else {
+    document.querySelector(".next").classList.remove("disabled");
+  }
+}
+
+function disableButton(button) {
+  if (button === "next") {
+    document.querySelector(".next").style.backgroundColor = "#ccc";
+  } else if (button === "previous") {
+    document.querySelector(".previous").style.backgroundColor = "#ccc";
+  }
 }
 
 // not found error
@@ -81,9 +109,9 @@ function getDrink() {
 // populate the modal window with cocktail information
 let num;
 function displayCocktails(arr) {
-  console.log(cocktailArr);
+  // console.log(cocktailArr);
   num = arr;
-  console.log(num);
+  // console.log(num);
 
   // If we have more than 1 cocktail we want to be able to loop through
   if (cocktailArrLength > 1) {
@@ -99,16 +127,6 @@ function displayCocktails(arr) {
     ".modal"
   ).style.backgroundImage = `url("${cocktailArr[num].strDrinkThumb}")`;
 
-  // Instructions for cocktail
-  // TODO we still have cases where there is too much text? How to resolve?
-  if (cocktailArr[num].strInstructions.length > 300) {
-    document.querySelector(".instruction-content").style.fontSize = "1.4rem";
-  } else {
-    document.querySelector(".instruction-content").style.fontSize = "1.8rem";
-  }
-  document.querySelector(".instruction-content").innerText =
-    cocktailArr[num].strInstructions;
-
   // Measures and Ingredients
   for (let i = 1; i < 16; i++) {
     let measure = cocktailArr[num]["strMeasure" + i];
@@ -116,17 +134,32 @@ function displayCocktails(arr) {
 
     if (
       // if there are more ingredients than measures needs to be checked
-      // TODO
       (measure !== null && measure !== "") ||
       (ingredient !== null && ingredient !== "")
     ) {
       let li = document.createElement("li");
       li.id = `ingredient--${i}`;
-      // TODO Perhaps an if statement here if measure is empty we just put ingredient in?
-      li.innerText = measure + " " + ingredient;
+
+      if (measure === null) {
+        li.innerText = ingredient;
+      } else {
+        li.innerText = measure + " " + ingredient;
+      }
       li.classList.add("ingredient-display");
       document.querySelector("ul").appendChild(li);
     }
   }
+
+  // Instructions for cocktail
+
+  // If there are more than 300 characters in the instruction we will cut the instruction short and add ... click for more at the end, which, when hovered over should show full content?
+  if (cocktailArr[num].strInstructions.length > 300) {
+    document.querySelector(".instruction-content").innerText =
+      cocktailArr[num].strInstructions.slice(0, 300) + "...";
+  } else {
+    document.querySelector(".instruction-content").innerText =
+      cocktailArr[num].strInstructions;
+  }
+
   openModal();
 }
